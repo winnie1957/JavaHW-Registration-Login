@@ -5,13 +5,13 @@
 
 
 使用到的技術:
--Spring Boot
--Spring Web
--Spring Data JPA & Hibernate
--Spring Security
--Thymeleaf
--Bootstrap
--JUnit Test
+- Spring Boot
+- Spring Web
+- Spring Data JPA & Hibernate
+- Spring Security
+- Thymeleaf
+- Bootstrap 5
+- JUnit Test
 
 Software:
 - Java Development Kit (JDK)
