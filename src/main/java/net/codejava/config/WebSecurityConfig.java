@@ -49,13 +49,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
-				.usernameParameter("userEmail")
+				.loginPage("/signin") //登入的頁面，預設是login
+//				.loginProcessingUrl("/signin") //登入form中action的地址，也就是處理認證請求的路徑
+				.usernameParameter("userEmail") //帳號input的name名，預設是username
+				.passwordParameter("userPassword") //密碼input的name名，預設是password
 				.defaultSuccessUrl("/list_users")
 				.permitAll()
 			.and()
 			.logout().logoutSuccessUrl("/").permitAll();
 
 	}
-	
+		
 	
 }

@@ -1,10 +1,17 @@
 package net.codejava.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,17 +26,23 @@ public class User {
 	private String userEmail;
 	@Column(name = "user_password", nullable = false)
 	private String userPassword;
-	@Column(name = "user_name")
+	@Column(name = "user_name", nullable = false)
 	private String userName;
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "users_roles", 
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id")
+			)
+	private Set<Role> roles = new HashSet<>();
 	
 
 	public User() {
 		
 	}
-
-
 	public User(String userEmail, String userPassword, String userName) {
-		super();
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.userName = userName;
@@ -73,6 +86,18 @@ public class User {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public void addRoles(Role role) {
+		this.roles.add(role);
 	}
 	
 	

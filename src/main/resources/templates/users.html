@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="UTF-8">
 	<title>Users List - codejava</title>
@@ -12,7 +13,10 @@
 		<div>
 			<form th:action="@{/logout}" method="post">
 				<p sec:authorize="isAuthenticated()">
+					Welcome <b>[[${#request.userPrincipal.name}]]</b>
+					<br>
 					Welcome <b><span sec:authentication="name"></span></b>
+					<span sec:authentication="principal.authorities">Role</span>
 				</p>
 				<input type="submit" value="Sign Out" />
 			</form>
@@ -27,6 +31,8 @@
 					    <th scope="col">User ID</th>
 					    <th scope="col">E-mail</th>
 					    <th scope="col">Name</th>
+					    <th scope="col">Roles</th>
+					    <th scope="col">Action</th>
 				    </tr>
 				</thead>
 				<tbody>
@@ -34,6 +40,10 @@
 						<td scope="row" th:text="${user.userId}"></td>
 						<td th:text="${user.userEmail}"></td>
 						<td th:text="${user.userName}"></td>
+						<td th:text="${user.roles}"></td>
+						<td>
+							<a th:href="@{'/user/edit/' + ${user.userId}}">Edit</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
